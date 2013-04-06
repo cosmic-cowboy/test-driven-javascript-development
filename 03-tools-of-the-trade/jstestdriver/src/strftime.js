@@ -18,31 +18,35 @@ Date.prototype.strftime = (function (){
 	}
 
 	// 内部ヘルパー(Internal helper)
-	function zeroPad(num){
-		return (+num < 10 ? "0" : "") + num;
-	}
+	  function zeroPad(num) {
+	    return (+num < 10 ? "0" : "") + num;
+	  }
 
 	Date.formats = {
 		// 整形メソッド（Formatting methods）
-		d : function (date) {
-			return zeroPad(date.getDate());
-		},
-		m : function (date) {
-			return zeroPad(date.getMonth() + 1);
-		},
-		y : function (date) {
-			return zeroPad(date.getYear() % 100);
-		},
-		Y : function (date) {
-			return zeroPad(date.getFullYear());
-		},
-		j : function (date) {
-			var jan1 = new Date(date.getFullYear, 0, 1);
-			var diff = date.getTime() - jan1.getTime();
+	    d: function (date) {
+	      return zeroPad(date.getDate());
+	    },
 
-			// 86400000 == 60 * 60 * 24 * 1000
-			return Math.ceil(diff / 86400000 );
-		},
+	    m: function (date) {
+	      return zeroPad(date.getMonth() + 1);
+	    },
+
+	    y: function (date) {
+	      return zeroPad(date.getYear() % 100);
+	    },
+
+	    Y: function (date) {
+	      return date.getFullYear();
+	    },
+
+	    j: function (date) {
+	      var jan1 = new Date(date.getFullYear(), 0, 1);
+	      var diff = date.getTime() - jan1.getTime();
+
+	      // 86400000 == 60 * 60 * 24 * 1000
+	      return Math.ceil(diff / 86400000);
+	    },
 
 		// フォーマット略記法（Format shorthands）
 		F : "%Y-%m-%d",
