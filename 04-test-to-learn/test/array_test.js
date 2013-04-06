@@ -9,6 +9,14 @@ TestCase("ArrayTest", {
 
 		assertEquals([1,2], arr);
 
+	},
+	// Array_prototype_spliceは部分削除後の配列を返すか
+	"test array splice should return modified array" : function(){
+
+		var arr = [1,2,3,4,5];
+		var result = arr.splice(2,3);
+
+		assertEquals(arr,result);
 	}
 
 });
