@@ -9,5 +9,11 @@ TestCase("Function Test",{
 
 	"test call function directly" :function(){
 		assert("Should be true", typeof assert == "function");
+	},
+
+	"test addToArray(list5-7)" :function(){
+		var targetArr = addToArray("a","b");
+		assert("addToArray", typeof targetArr == "string");
 	}
+
 });
