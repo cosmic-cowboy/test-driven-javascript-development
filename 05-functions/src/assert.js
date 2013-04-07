@@ -1,8 +1,12 @@
 // 関数宣言
 function assert(message, expr){
 
-	if(!expr){
-		throw new Error(message);
+	if(arguments.length < 2){
+		throw new Error("Provide message and value to test");
+	}
+
+	if(!arguments[1]){
+		throw new Error(arguments[0]);
 	}
 
 	assert.count++;
