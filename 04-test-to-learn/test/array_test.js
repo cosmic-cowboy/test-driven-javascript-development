@@ -20,5 +20,4 @@ TestCase("ArrayTest", {
 
 		assertEquals([3,4,5],result);
 	}
-
 });
