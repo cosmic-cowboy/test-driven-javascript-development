@@ -1,16 +1,11 @@
-// 名前付き関数式
-// 識別子はオプション 外側のスコープからは無名関数
+// Functionを使った関数の作成
+var assert = Function("message", "expr",
+	"if(!expr){" +
+	"	throw new Error(message);" +
+	"}" +
+	"assert.count++;" +
+	"return true;"
+);
 
-var assert = function assert(message, expr){
-
-	if(!expr){
-		throw new Error(message);
-	}
-
-	assert.count++;
-
-	return true;
-// 関数式には終端子としてセミコロンをつける
-};
-
+// 関数はオブジェクトなのでプロパティを持つことができる
 assert.count = 0;
