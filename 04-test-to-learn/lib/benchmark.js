@@ -1,23 +1,52 @@
-var ol;
-function runBenchmark(name, test){
+var benchmark = (function(){
 
-	if(!ol){
-		ol = document.createElement("ol");
+	// Initialization create Ordered List
+	function init(name){
+		var heading = document.createElement("h2");
+		heading.innerHTML = name;
+		document.body.appendChild(heading);
+
+		var ol = document.createElement("ol");
 		document.body.appendChild(ol);
+
+		return ol;
 	}
 
-	// テスト中にブラウザを止めないため、setTimeoutを使用
-	// タイマーは長時間実行される可能性のあるテストおの合間にキューイングされたタスクを拾い上げる
-	setTimeout(function(){
-		// 1. new Date()する（テストスタート時間）
-		var start = new Date().getTime();
-		// 2. 計測対象のコードを実行する
-		test();
-		// 3. new Date()する（終了：処理にかかった時間を算出）
-		var total = new Date().getTime() - start ;
+	function runTests(tests, view, iterations){
+		for (var label in tests){
+			if(!tests.hasOwnProperty(label) || typeof tests[label] != "function"){
+				continue;
+			}
 
-		var li = document.createElement("li");
-		li.innerHTML = name + " : " + total + "ms";
-		ol.appendChild(li);
-	}, 15);
-}
+			(function (name, test){
+				setTimeout(function(){
+					// test start
+					var start = new Date().getTime();
+					var l = iterations;
+
+					// test
+					while(l--){
+						test();
+					}
+
+					// test end 
+					var total = new Date().getTime() - start;
+
+					var li = document.createElement("li");
+					li.innerHTML = name + " : " + total + "ms(total), " + (total / iterations) + "ms(avg)";
+					view.appendChild(li);
+
+				}, 15);
+
+			}(label, tests[label]));
+		}	
+	}
+
+	function benchmark(name, tests, iterations){
+		iterations = iterations || 1000;
+		var view = init(name);
+		runTests(tests, view, iterations);
+	}
+
+	return benchmark;
+}());
