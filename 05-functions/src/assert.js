@@ -1,9 +1,7 @@
-// 関数式, 無名関数が作られる
-// 使用法1. ほかに関数に渡す
-// 使用法2. 関数の戻り値に
-// 使用法3. 変数・オブジェクトのプロパティに代入
+// 名前付き関数式
+// 識別子はオプション 外側のスコープからは無名関数
 
-var assert = function(message, expr){
+var assert = function assert(message, expr){
 
 	if(!expr){
 		throw new Error(message);
