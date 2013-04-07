@@ -25,8 +25,12 @@ var benchmark = (function(){
 					var l = iterations;
 
 					// test
-					while(l--){
-						test();
+					if(!test.length){
+						while(l--){
+							test();
+						}						
+					} else {
+						test(1);
 					}
 
 					// test end 
