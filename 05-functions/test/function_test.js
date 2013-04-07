@@ -14,6 +14,36 @@ TestCase("Function Test",{
 	"test addToArray(list5-7)" :function(){
 		var targetArr = addToArray("a","b");
 		assert("addToArray", typeof targetArr == "string");
+	},
+
+	"test scope" : function(){
+
+		// declaration
+		function sum(){
+			// i undefined
+			assertUndefined(i);
+
+			// someVar TypeError
+			assertException(function(){
+				assertUndefined(someVar);
+			}, "ReferenceError");
+
+			var total = arguments[0];
+
+			if(arguments.length > 1){
+				for (var i = 1, l = arguments.length; i < l; i++) {
+					total += arguments[i];
+				}
+			}
+
+			// i can be accessed
+			assertEquals(5, i);
+
+			return total;
+		}
+
+		// execute
+		sum(1,2,3,4,5);
 	}
 
 });
