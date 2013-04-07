@@ -6,6 +6,8 @@ function runBenchmark(name, test){
 		document.body.appendChild(ol);
 	}
 
+	// テスト中にブラウザを止めないため、setTimeoutを使用
+	// タイマーは長時間実行される可能性のあるテストおの合間にキューイングされたタスクを拾い上げる
 	setTimeout(function(){
 		// 1. new Date()する（テストスタート時間）
 		var start = new Date().getTime();
