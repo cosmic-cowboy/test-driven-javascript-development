@@ -18,6 +18,7 @@ var benchmark = (function(){
 				continue;
 			}
 
+			// Inside runTests
 			(function (name, test){
 				setTimeout(function(){
 					// test start
