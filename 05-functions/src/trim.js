@@ -1,13 +1,9 @@
-// list5-19 条件に基づく関数定義 危険
+// list5-20 条件に基づいて文字列メソッドを提供する
 
 var trim;
 
-if(String.prototype.trim){
-	function trim(str) {
-		return str.trim();
-	};
-}else{
-	function trim (str) {
+if(!String.prototype.trim){
+	String.prototype.trim = function (str) {
 		return str.replace(/^\s+|\s+$/g, "");
 	};
 }
