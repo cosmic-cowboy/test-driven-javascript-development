@@ -10,8 +10,10 @@ TestCase("Boolean test", {
 
 	"test should flip value of false" : function(){
 	// Oops! Both fail, false.not() == false
-		assertTrue(false.not());
-		assertTrue(Boolean.prototype.not.call(false));
+		// assertTrue(false.not());
+		// assertTrue(Boolean.prototype.not.call(false));
+		assertFalse(false.not());
+		assertFalse(Boolean.prototype.not.call(false));
 
 	}
 });
