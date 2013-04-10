@@ -1,13 +1,13 @@
-// list5-18 条件に基づく関数定義
+// list5-19 条件に基づく関数定義 危険
 
 var trim;
 
 if(String.prototype.trim){
-	trim = function (str) {
+	function trim(str) {
 		return str.trim();
 	};
 }else{
-	trim = function (str) {
+	function trim (str) {
 		return str.replace(/^\s+|\s+$/g, "");
 	};
 }
