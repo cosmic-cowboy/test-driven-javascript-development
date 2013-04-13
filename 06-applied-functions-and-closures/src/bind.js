@@ -1,14 +1,34 @@
-// list6-6 引数のバインドもサポートするbind
+// list6-7 最適化されたbind
 
 if(!Function.prototype.bind) {
-	Function.prototype.bind = function(thisObj) {
-		var target = this;
-		var args   = Array.prototype.slice.call(arguments, 1);
+	(function(){
+		var slice = Array.prototype.slice;
 
-		return function(){
-			var received = Array.prototype.slice.call(arguments);
+		Function.prototype.bind = function(thisObj){
+			var target = this;
 
-			return target.apply(thisObj, args.concat(received));
+			if(arguments.length > 1){
+				// Arrays
+				var args = slice.call(arguments, 1);
+
+				return function(){
+					var allArgs = args;
+
+					if(arguments.length > 0){
+						// Arrays
+						allArgs = args.concat(slice.call(arguments));
+					}
+					return target.apply(thisObj, allArgs);
+				};
+			}
+
+			return function(){
+				if(arguments.length > 0){
+					return target.apply(thisObj, arguments);
+				}
+
+				return target.call(thisObj);
+			};
 		};
-	};
+	}());
 }
