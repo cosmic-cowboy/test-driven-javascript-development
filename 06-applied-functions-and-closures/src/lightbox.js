@@ -32,7 +32,7 @@ function anchorLightbox (anchor, options) {
 	return lb;
 }
 
-// list 6-12 誤ったイベントハンドラの追加
+// list 6-13 クロージャのネストでスコープ問題を解決する
 
 (function () {
 	var anchors = document.getElementsByTagName("a");
@@ -42,10 +42,13 @@ function anchorLightbox (anchor, options) {
 	for (var i = 0, l = anchors.length; i < l; i++) {
 		if(regexp.test(anchors[i].className)){
 
-			anchors[i].onclick = function(){
-				controller.open(anchors[i]);
-				return false;
-			};
+			// ただちに呼び出される無名関数
+			(function(anchor){
+				anchors[i].onclick = function(){
+					controller.open(anchor);
+					return false;
+				};
+			}(anchors[i]));
 		}
 	}
 }());
