@@ -26,7 +26,9 @@ function anchorLightbox (anchor, options) {
 	lb.url = anchor.href;
 	lb.title = anchor.title || anchor.href;
 	Object.extend(lb, options);
-	anchor.onclick = lb.open;
+	anchor.onclick = function () {
+		return lb.open;
+	};
 
 	return lb;
 }
