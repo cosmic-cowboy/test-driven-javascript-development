@@ -32,14 +32,20 @@ function anchorLightbox (anchor, options) {
 	return lb;
 }
 
-// list 6-11 create Lightbox
+// list 6-12 誤ったイベントハンドラの追加
+
 (function () {
 	var anchors = document.getElementsByTagName("a");
+	var controller = Object.create(lightboxController);
 	var regexp  = /(^|\s)lightbox(\s|$)/;
 
 	for (var i = 0, l = anchors.length; i < l; i++) {
 		if(regexp.test(anchors[i].className)){
-			anchorLightbox(anchors[i]);
+
+			anchors[i].onclick = function(){
+				controller.open(anchors[i]);
+				return false;
+			};
 		}
 	}
 }());
