@@ -31,3 +31,15 @@ function anchorLightbox (anchor, options) {
 
 	return lb;
 }
+
+// list 6-11 create Lightbox
+(function () {
+	var anchors = document.getElementsByTagName("a");
+	var regexp  = /(^|\s)lightbox(\s|$)/;
+
+	for (var i = 0, l = anchors.length; i < l; i++) {
+		if(regexp.test(anchors[i].className)){
+			anchorLightbox(anchors[i]);
+		}
+	}
+}());
