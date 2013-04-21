@@ -23,5 +23,13 @@ TestCase("NamespaceTest", {
 
 		assertSame(existing, tddjs.nstest.nested.existing);
 		assertObject(tddjs.nstest.nested.ui);
+	},
+
+	"test namespacing inside other objects" : function(){
+		var custom = {namespace : tddjs.namespace};
+		custom.namespace("dom.event");
+
+		assertObject(custom.dom.event);
+		assertUndefined(tddjs.dom);	
 	}
 });
