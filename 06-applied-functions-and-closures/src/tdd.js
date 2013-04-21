@@ -1,4 +1,4 @@
-// lsit6-16 namespace関数	
+// list6-16 namespace関数	
 
 var tddjs = (function () {
 	function namespace(string){
@@ -19,7 +19,7 @@ var tddjs = (function () {
 	};
 }());
 
-// lsit6-20 自由変数に状態を格納する
+// list6-20 自由変数に状態を格納する
 
 (function(){
 	var id = 0;
@@ -32,5 +32,30 @@ var tddjs = (function () {
 
 	if(typeof tddjs == "object"){
 		tddjs.uid = uid;
+	}
+}());
+
+// list6-22
+(function () {
+	function iterator (collection) {
+		var index = 0;
+		var length = collection.length;
+
+		function next(){
+			var item = collection[index++];
+			return item;
+		}
+
+		function hasNext() {
+			return index < length;
+		}
+		return{
+			next : next,
+			hasNext : hasNext
+		};
+	}
+
+	if(typeof tddjs == "object"){
+		tddjs.iterator = iterator;
 	}
 }());

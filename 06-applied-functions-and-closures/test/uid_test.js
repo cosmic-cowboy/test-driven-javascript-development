@@ -27,8 +27,9 @@ TestCase("UidTest", {
 		assertSame(id, tddjs.uid(func));
 	},
 
-	"test should return underfined for primitive" : function(){
+	"test should return undefined for primitive" : function(){
 		var str = "my string";
+		// assertNumber(id);
 		assertUndefined(tddjs.uid(str));
 	}
 });

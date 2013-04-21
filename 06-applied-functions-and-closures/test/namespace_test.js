@@ -30,6 +30,6 @@ TestCase("NamespaceTest", {
 		custom.namespace("dom.event");
 
 		assertObject(custom.dom.event);
-		assertUndefined(tddjs.dom);	
+		assertUndefined(tddjs.dom);
 	}
 });
