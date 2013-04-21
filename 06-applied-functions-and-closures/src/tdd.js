@@ -35,7 +35,8 @@ var tddjs = (function () {
 	}
 }());
 
-// list6-22
+// list6-23 実装的なイテレータ
+
 (function () {
 	function iterator (collection) {
 		var index = 0;
@@ -43,16 +44,12 @@ var tddjs = (function () {
 
 		function next(){
 			var item = collection[index++];
+			next.hasNext = index < length;
 			return item;
 		}
 
-		function hasNext() {
-			return index < length;
-		}
-		return{
-			next : next,
-			hasNext : hasNext
-		};
+		next.hasNext = index < length;
+		return next;
 	}
 
 	if(typeof tddjs == "object"){
