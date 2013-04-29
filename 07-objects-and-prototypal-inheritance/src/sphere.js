@@ -4,12 +4,15 @@ function Sphere (radius) {
 	this.radius = radius;
 }
 
-Sphere.prototype = (function() {
-	function F (){}
-	F.prototype = Circle.prototype;
-	return new F();
-}());
+// 7-29 inheritを使ってSphereにCircleを継承させる
+Sphere.inherit(Circle);
 
-// コンストラクタ
-// プロトタイプチェーンがおかしくなるので補正
-Sphere.prototype.constructor = Sphere;
+// Sphere.prototype = (function() {
+// 	function F (){}
+// 	F.prototype = Circle.prototype;
+// 	return new F();
+// }());
+
+// // コンストラクタ
+// // プロトタイプチェーンがおかしくなるので補正
+// Sphere.prototype.constructor = Sphere;
