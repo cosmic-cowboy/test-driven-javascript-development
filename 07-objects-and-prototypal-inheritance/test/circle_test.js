@@ -43,6 +43,15 @@ TestCase("CircleTest",{
 		Circle.prototype = {};
 		assertEquals(Object, new Circle().constructor)
 
+	},
+
+	// list 7-23コンストラクタの誤用
+	"test calling prototype without 'new' returns undefined" : function () {
+		var circle = Circle(6);
+		assertEquals("undefined", typeof circle);
+
+		// グローバルオブジェクトのプロパティを定義している
+		assertEquals(6, radius);
 	}
 
 });
