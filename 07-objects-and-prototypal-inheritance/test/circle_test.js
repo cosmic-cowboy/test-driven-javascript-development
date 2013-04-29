@@ -28,5 +28,14 @@ TestCase("CircleTest",{
 		assertEquals(circle.constructor, circle2.constructor);
 		assertTrue(circle  instanceof Circle);
 		assertTrue(circle2 instanceof Circle);
+	},
+
+	// list 7-17 Circle.prototype.diameterのテスト
+	"test should inherit properties from Circle prototype" : function () {
+		var circle = new Circle(6);
+
+		assertEquals(12, circle.diameter());
 	}
+
+
 });
