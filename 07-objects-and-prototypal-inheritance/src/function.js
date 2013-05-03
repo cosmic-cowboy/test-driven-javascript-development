@@ -1,4 +1,5 @@
 // list 7-28 inheritの実装
+// list 7-34 プロトタイプへのリンクの実装
 
 if(!Function.prototype.inherit){
 	(function () {
@@ -10,6 +11,8 @@ if(!Function.prototype.inherit){
 			F.prototype = superFn.prototype;
 			this.prototype = new F();
 			this.prototype.constructor = this;
+			this.prototype._super = superFn.prototype;
+
 		};
 
 	})();
