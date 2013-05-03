@@ -8,6 +8,12 @@ function Sphere (radius) {
 
 Sphere.inherit(Circle);
 
+// list 7-31 プロトタイプチェーン上のメソッドを呼び出す
+// inheritの後に書かないと行方不明になる
+
+Sphere.prototype.area = function() {
+	return 4 * Circle.prototype.area.call(this);
+};
 
 // list 7-25 深い継承
 
