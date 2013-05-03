@@ -18,7 +18,7 @@ TestCase("ArrayLoopTest", {
 
 		for(var i in array){
 			result.push(array[i]);
-			jstestdriver.console.log(array[i]);
+			// jstestdriver.console.log(array[i]);
 		}
 		// assertEquals("123456", result.join(""));
 		assertFalse("123456" === result.join(""));
