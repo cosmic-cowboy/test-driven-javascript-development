@@ -5,7 +5,6 @@ function Sphere (radius) {
 }
 
 // 7-29 inheritを使ってSphereにCircleを継承させる
-<<<<<<< HEAD
 
 Sphere.inherit(Circle);
 
@@ -29,11 +28,6 @@ Sphere.prototype.area = function() {
 // 	this.radius = radius;
 // }
 
-
-=======
-Sphere.inherit(Circle);
-
->>>>>>> origin/master
 // Sphere.prototype = (function() {
 // 	function F (){}
 // 	F.prototype = Circle.prototype;
