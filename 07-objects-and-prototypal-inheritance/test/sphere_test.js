@@ -10,5 +10,12 @@ TestCase("SphereTest", {
 		assertTrue(sphere instanceof Object);
 		assertEquals(12, sphere.diameter());
 
+	},
+
+	// list 7-32 表面積の計算
+	"test should calculate sphere area" : function () {
+		var sphere = new Sphere(3);
+
+		assertEquals(113, Math.round(sphere.area()));
 	}
 });
