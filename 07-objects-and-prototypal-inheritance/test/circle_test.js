@@ -41,17 +41,27 @@ TestCase("CircleTest",{
 	"test constructor is Object when prototype is overridden" : function () {
 		function Circle () {}
 		Circle.prototype = {};
-		assertEquals(Object, new Circle().constructor)
+		assertEquals(Object, new Circle().constructor);
 
 	},
 
-	// list 7-23コンストラクタの誤用
+	// list 7-24コンストラクタの誤用の解消
 	"test calling prototype without 'new' returns undefined" : function () {
 		var circle = Circle(6);
-		assertEquals("undefined", typeof circle);
+		assertEquals("object", typeof circle);
 
 		// グローバルオブジェクトのプロパティを定義している
-		assertEquals(6, radius);
+		assertEquals(6, circle.radius);
 	}
+
+	// // list 7-23コンストラクタの誤用
+	// "test calling prototype without 'new' returns undefined" : function () {
+	// 	var circle = Circle(6);
+	// 	assertEquals("undefined", typeof circle);
+
+	// 	// グローバルオブジェクトのプロパティを定義している
+	// 	assertEquals(6, radius);
+
+	// }
 
 });
