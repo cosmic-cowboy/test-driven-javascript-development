@@ -17,5 +17,14 @@ TestCase("SphereTest", {
 		var sphere = new Sphere(3);
 
 		assertEquals(113, Math.round(sphere.area()));
+	},
+
+	// lsit 7-33 _superがプロトタイプを参照するという前提でのテスト
+	"test should set up link to super" : function () {
+		var SubFn   = function () {};
+		var SuperFn = function () {};
+		SubFn.inherit(SuperFn);
+
+		assertEquals(SuperFn.prototype, SubFn.prototype._super);
 	}
 });
