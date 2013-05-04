@@ -54,7 +54,6 @@ tddjs.iterator = (function () {
   return iterator;
 }());
 
-// list 7-10 hasOwnProperty SandBox
 tddjs.isOwnProperty = (function () {
   var hasOwn = Object.prototype.hasOwnProperty;
 
@@ -68,81 +67,98 @@ tddjs.isOwnProperty = (function () {
   }
 }());
 
-// list 7-12 クロスブラウザでプロパティのループ処理に使えるeachメソッド
-	// 引数のオブジェクトのプロパティでfor-inループに姿を現さないものの配列を返す
-
 tddjs.each = (function () {
+  // Returns an array of properties that are not exposed
+  // in a for-in loop
+  function unEnumerated(object, properties) {
+    var length = properties.length;
 
-	function unEnumerated (object, properties) {
-		var length = properties.length;
+    for (var i = 0; i < length; i++) {
+      object[properties[i]] = true;
+    }
 
-		for (var i = 0; i < length; i++) {
-			object[properties[i]] = true;
-		}
+    var enumerated = length;
 
-		var enumerated = length;
+    for (var prop in object) {
+      if (tddjs.isOwnProperty(object, prop)) {
+        enumerated -= 1;
+        object[prop] = false;
+      }
+    }
 
-		for(var prop in object){
-			if(tddjs.isOwnProperty(object, prop)){
-				enumerated -= 1;
-				object[prop] = false;
-			}
-		}
+    if (!enumerated) {
+      return;
+    }
 
-		if(!enumerated){
-			return;
-		}
+    var needsFix = [];
 
-		var needsFix = [];
+    for (i = 0; i < length; i++) {
+      if (object[properties[i]]) {
+        needsFix.push(properties[i]);
+      }
+    }
 
-		for (var i = 0; i < length; i++) {
-			if(object[properties[i]]){
-				needsFix.push(properties[i]);
-			}
-		}
-		return needsFix;
-	}
+    return needsFix;
+  }
 
-	var oFixes = unEnumerated({},
-		["toString", "toLocalString", "valueOf", 
-		"hasOwnProperty", "isPrototypeOf",
-		"constructor", "propertyIsEnumerable"];
+  var oFixes = unEnumerated({},
+    ["toString", "toLocaleString", "valueOf",
+     "hasOwnProperty", "isPrototypeOf",
+     "constructor", "propertyIsEnumerable"]);
 
-	var fFixes = unEnumerated(
-			function () {}, ["call", "apply","prototype"]
-		);
+  var fFixes = unEnumerated(
+    function () {}, ["call", "apply", "prototype"]);
 
-	if(fFixes && oFixes){
-		fFixes = oFixes.concat(fFixes);
-	}
+  if (fFixes && oFixes) {
+    fFixes = oFixes.concat(fFixes);
+  }
 
-	var needsFix = {"object" : oFixes, "function" : fFixes};
+  var needsFix = { "object": oFixes, "function": fFixes };
 
-	return funciton(object, callback){
-		if(typeof callback != "function"){
-			throw new TypeError("callback is not a function");
-		}
+  return function (object, callback) {
+    if (typeof callback != "function") {
+      throw new TypeError("callback is not a function");
+    }
 
-		// 通常のループ
-		for(var prop in object){
-			if(tddjs.isOwnProperty(object, prop)){
-				callback(prop, object[prop]);
-			}
-		}
+    // Normal loop, should expose all enumerable properties
+    // in conforming browsers
+    for (var prop in object) {
+      if (tddjs.isOwnProperty(object, prop)) {
+        callback(prop, object[prop]);
+      }
+    }
 
-		var fixes = needsFix[typeof object];
+    // Loop additional properties in non-conforming browsers
+    var fixes = needsFix[typeof object];
 
-		if(fixes){
-			var property;
-			for(var i = 0, l = fixes.length; i < l; i++){
-				property = fixes[i];
+    if (fixes) {
+      var property;
 
-				if(tddjs.isOwnProperty(object, property)){
-					callback(property, object[property]);
-				}
-			}
-		}
-	};
+      for (var i = 0, l = fixes.length; i < l; i++) {
+        property = fixes[i];
+
+        if (tddjs.isOwnProperty(object, property)) {
+          callback(property, object[property]);
+        }
+      }
+    }
+  };
 }());
 
+tddjs.extend = (function () {
+  function extend(target, source) {
+    target = target || {};
 
+    if (!source) {
+      return target;
+    }
+
+    tddjs.each(source, function (prop, val) {
+      target[prop] = val;
+    });
+
+    return target;
+  }
+
+  return extend;
+}());
