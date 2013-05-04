@@ -7,7 +7,7 @@ TestCase("Circle2Test",{
 
 		var circ2 = new Circle2(6);
 
-		circ2.radius = 9
+		circ2.radius = 9;
 		assertEquals(9, circ2.radius);
 		assertTrue(typeof circ2.getRadius == "function");
 		assertTrue(typeof circ2.setRadius == "function");
