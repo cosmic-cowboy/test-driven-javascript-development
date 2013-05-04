@@ -1,3 +1,5 @@
+// list 7-36 _superメソッドのテスト
+
 TestCase("Inherit2Test",{
 	"test super should call method of same name on prototype" : function () {
 		function Person(name){
@@ -15,6 +17,24 @@ TestCase("Inherit2Test",{
 				return "Hello";
 			}
 		};
-		// P152
-	}	
+
+		function LoudPerson (name) {
+			Person.call(this, name);
+		}
+
+		LoudPerson.inherit2(Person, {
+			getName : function () {
+				return this._super().toUpperCase();
+			},
+
+			speak : function () {
+				return this._super() + "!!!";
+			}
+		});
+
+		var np = new LoudPerson("Chris");
+
+		assertEquals("CHRIS", np.getName());
+		assertEquals("Hello!!!", np.speak());
+	}
 });
