@@ -28,5 +28,20 @@ TestCase("ObjectExtendTest",{
 
 		assertEquals("function", typeof object.getName);
 		assertEquals("function", typeof object.setName);
+	},
+
+	// list 7-56 1個だけの引数を処理するs
+
+	"test should return target untouched when no source" : function () {
+		var object = tddjs.extend({});
+		var properties = [];
+
+		for(var prop in object){
+			if(tddjs.isOwnProperty(object, prop)){
+				properties.push(prop);
+			}
+		}
+
+		assertEquals(0, properties.length);
 	}
 });
