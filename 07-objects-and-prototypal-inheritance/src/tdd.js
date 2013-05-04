@@ -145,20 +145,13 @@ tddjs.each = (function () {
   };
 }());
 
+// list 7-53 tddjs.extendの初期実装
+
 tddjs.extend = (function () {
-  function extend(target, source) {
-    target = target || {};
-
-    if (!source) {
-      return target;
-    }
-
+  function extend (target, source) {
     tddjs.each(source, function (prop, val) {
       target[prop] = val;
     });
-
-    return target;
   }
-
   return extend;
 }());
