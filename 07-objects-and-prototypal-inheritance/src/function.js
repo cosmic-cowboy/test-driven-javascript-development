@@ -17,3 +17,43 @@ if(!Function.prototype.inherit){
 
 	})();
 }
+
+
+// list 7-37 _superをメソッドとして実装する
+
+if(!Function.prototype.inherit2){
+
+	// 無名関数の即時実行
+
+	(function () {
+
+		function F () {}
+
+		Function.prototype.inherit2 = function(superFn, methods) {
+			F.prototype = superFn.prototype;
+			this.prototype = new F();
+			this.prototype.constructor = this;
+
+			var subProto = this.prototype;
+
+			tddjs.each(methods, function (name, method) {
+
+				// 元のメソッドをラップする
+				subProto[name] = function () {
+					var returnValue;
+					var oldSuper = this._super;
+					this._super = superFn.prototype[name];
+
+					try{
+						returnValue = method.apply(this, arguments);
+					} finally {
+						this._super = oldSuper;
+					}
+
+					return returnValue;
+				};
+			});
+		};
+	})();
+
+}
