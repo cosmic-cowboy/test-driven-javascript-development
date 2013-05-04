@@ -4,16 +4,25 @@ function Sphere (radius) {
 	Circle.call(this, radius);
 }
 
-// 7-29 inheritを使ってSphereにCircleを継承させる
 
-Sphere.inherit(Circle);
+// list 7-38 inherit2でSphereを実装する
+
+Sphere.inherit2(Circle, {
+	area : function () {
+		return 4 * this._super();
+	}
+});
+
+// // 7-29 inheritを使ってSphereにCircleを継承させる
+
+// Sphere.inherit(Circle);
 
 
-// list 7-35 プロトタイプチェーン上のメソッドを呼び出す
+// // list 7-35 プロトタイプチェーン上のメソッドを呼び出す
 
-Sphere.prototype.area = function() {
-	return 4 * this._super.area.call(this);
-};
+// Sphere.prototype.area = function() {
+// 	return 4 * this._super.area.call(this);
+// };
 
 // // list 7-31 プロトタイプチェーン上のメソッドを呼び出す
 // // inheritの後に書かないと行方不明になる
