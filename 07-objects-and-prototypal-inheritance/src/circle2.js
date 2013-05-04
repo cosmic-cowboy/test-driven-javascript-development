@@ -1,6 +1,10 @@
-// list 7-43 非公開メンバーと特権メソッド
+// list 7-44 関数継承を使ったCircle2の実装
 
-function Circle2 (radius) {
+function circle (radius) {
+
+	// ネスト関数は自由変数にアクセスできる
+	// 内部非公開関数
+
 	function getSetRadius () {
 		if(arguments.length > 0){
 			if(arguments[0] < 0){
@@ -20,13 +24,51 @@ function Circle2 (radius) {
 		return diameter() * Math.PI;
 	}
 
-	// 特権メソッドへのアクセス手段
-	this.radius = getSetRadius;
-	this.diameter = diameter;
-	this.circumference = circumference;
+	function area() {
+		return radius * radius * Math.PI;
+	}
 
-	this.radius(radius);
+	// プロパティに代入
+
+	return {
+		radius : getSetRadius,
+		diameter : diameter,
+		area : area,
+		circumference : circumference
+	};
 }
+
+
+
+// // list 7-43 非公開メンバーと特権メソッド
+
+// function Circle2 (radius) {
+// 	function getSetRadius () {
+// 		if(arguments.length > 0){
+// 			if(arguments[0] < 0){
+// 				throw new TypeError("Radius should be >= 0");
+// 			}
+
+// 			radius = arguments[0];
+// 		}
+// 		return radius;
+// 	}
+
+// 	function diameter () {
+// 		return radius * 2;
+// 	}
+
+// 	function circumference () {
+// 		return diameter() * Math.PI;
+// 	}
+
+// 	// 特権メソッドへのアクセス手段
+// 	this.radius = getSetRadius;
+// 	this.diameter = diameter;
+// 	this.circumference = circumference;
+
+// 	this.radius(radius);
+// }
 
 
 // // list 7-42 コンストラクタ内部の非公開関数の使い方
