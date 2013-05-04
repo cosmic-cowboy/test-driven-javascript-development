@@ -11,5 +11,6 @@ TestCase("Circle2Test",{
 		assertEquals(9, circ2.radius);
 		assertTrue(typeof circ2.getRadius == "function");
 		assertTrue(typeof circ2.setRadius == "function");
+		assertTrue(circ2.ensureValidRadius === undefined);
 	}
 });
