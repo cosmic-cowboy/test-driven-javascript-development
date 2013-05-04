@@ -20,6 +20,7 @@ if(!Function.prototype.inherit){
 
 
 // list 7-37 _superをメソッドとして実装する
+// すべての関数を再定義、クロージャでラップ
 
 if(!Function.prototype.inherit2){
 
@@ -57,3 +58,31 @@ if(!Function.prototype.inherit2){
 	})();
 
 }
+
+
+// list 7-39 もっと単純な_super実装
+
+function _super (object, methodName) {
+	var method = object._super && object._super[methodName];
+
+	if(typeof methodName != "function"){
+		return;
+	}
+
+	// 最初の２つの引数（オブジェクトとメソッド）を取り除く
+	var args = Array.prototype.slice.call(arguments, 2);
+
+	// 残りの引数をsuperに渡す
+	return method.apply(object, args);
+}
+
+
+
+
+
+
+
+
+
+
+
