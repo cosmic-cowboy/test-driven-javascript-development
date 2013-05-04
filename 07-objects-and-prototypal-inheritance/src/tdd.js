@@ -146,12 +146,16 @@ tddjs.each = (function () {
 }());
 
 // list 7-53 tddjs.extendの初期実装
+// list 7-55 targetがnullになっているのを認める（許容する）
 
 tddjs.extend = (function () {
   function extend (target, source) {
+    target = target || {};
+
     tddjs.each(source, function (prop, val) {
       target[prop] = val;
     });
+    return target;
   }
   return extend;
 }());
