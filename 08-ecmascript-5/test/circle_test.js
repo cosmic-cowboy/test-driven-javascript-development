@@ -19,5 +19,38 @@ TestCase("CircleTest", {
 
 		assert(circle instanceof Circle);
 		assertEquals(6, circle.diameter);
+	},
+
+	// list 8-14 Object.create と関数を使う
+	"test using a custom create method" : function () {
+		var circle = Object.create({},{
+			diameter : {
+				get : function () {
+					return this.radius * 2;
+				}
+			},
+
+			circumference : {},
+			area : {},
+			create : {
+				value : function (radius) {
+					var circ = Object.create(this, {
+						radius : {value : radius}
+					});
+
+					return circ;
+				}
+			}
+		});
+
+		var myCircle = circle.create(3);
+
+		assertEquals(6, myCircle.diameter);
+		assert(circle.isPrototypeOf(myCircle));
+
+		// circle は関数ではない
+		assertException(function () {
+			assertFalse(myCircle instanceof circle);
+		});
 	}
 });
