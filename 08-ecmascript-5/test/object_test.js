@@ -58,5 +58,24 @@ TestCase("ES5ObjectTest", {
 
 		assert(circle.isPrototypeOf(sphere));
 		assertEquals(circle, Object.getPrototypeOf(sphere));
+	},
+
+	// list 8-8 プロパティとともにオブジェクトを作る
+	"test Object.create with properties" : function () {
+		var circle = {};
+		var sphere = Object.create(circle, {
+			radius : {
+				value : 3,
+				writable : false,
+				configurable : false,
+				enumerable : true
+			}
+		});
+
+		assertEquals(3, sphere.radius);
+
 	}
+
+
+
 });
