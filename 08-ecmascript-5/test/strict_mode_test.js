@@ -7,6 +7,18 @@ TestCase("StrictModeTest",{
 		assertException(function () {
 			sum(9,3);
 		});
-	}
+	},
 
+	// list 8-19 複数の仮引数に対して同じ識別子を使った場合
+
+	"test repeated identifiers in parameters" : function () {
+		// ES5 厳密モードでは構文エラー
+		function es3VsEs5 (a,a,a) {
+			// "use strict";
+			return a;
+		}
+
+		// ES3ではTrue
+		assertEquals(6, es3VsEs5(2,3,6));
+	}
 });
