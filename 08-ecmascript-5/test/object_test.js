@@ -30,7 +30,7 @@ TestCase("ES5ObjectTest", {
 		assertEquals(3, circle.radius);
 	},
 
-	// list 8-5 
+	// list 8-5 ES3でほかのオブジェクトを継承するオブジェクトを作るための方法
 	"test es3 inheritance via constructors" : function () {
 		var circle = {};
 
@@ -38,6 +38,15 @@ TestCase("ES5ObjectTest", {
 		CircleProxy.prototype = circle;
 
 		var sphere = new CircleProxy();
+
+		assert(circle.isPrototypeOf(sphere));
+	},
+
+	// list 8-6 プロトタイプを取得設定するためのベンダー拡張
+	"test inheritance via proprietary __photo__" : function () {
+		var circle = {};
+		var sphere = {};
+		sphere.__proto__ = circle;
 
 		assert(circle.isPrototypeOf(sphere));
 	}
