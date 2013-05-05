@@ -11,5 +11,13 @@ TestCase("CircleTest", {
 
 		delete circle.radius;
 		assertEquals(6, circle.radius);
+	},
+
+	// list 8-13 newなしでCircleを使う
+	"test omitting new when creating circle" : function () {
+		var circle = Circle(3);
+
+		assert(circle instanceof Circle);
+		assertEquals(6, circle.diameter);
 	}
 });
