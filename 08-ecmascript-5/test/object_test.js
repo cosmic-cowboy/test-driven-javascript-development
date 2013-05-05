@@ -28,5 +28,17 @@ TestCase("ES5ObjectTest", {
 
 		// configurableでないradiusは削除できない
 		assertEquals(3, circle.radius);
+	},
+
+	// list 8-5 
+	"test es3 inheritance via constructors" : function () {
+		var circle = {};
+
+		function CircleProxy () {}
+		CircleProxy.prototype = circle;
+
+		var sphere = new CircleProxy();
+
+		assert(circle.isPrototypeOf(sphere));
 	}
 });
