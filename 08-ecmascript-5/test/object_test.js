@@ -49,5 +49,14 @@ TestCase("ES5ObjectTest", {
 		sphere.__proto__ = circle;
 
 		assert(circle.isPrototypeOf(sphere));
+	},
+
+	// list 8-7 ES5でほかのオブジェクトを継承するオブジェクトを作るための方法
+	"test inheritance, es5 style" : function () {
+		var circle = {};
+		var sphere = Object.create(circle);
+
+		assert(circle.isPrototypeOf(sphere));
+		assertEquals(circle, Object.getPrototypeOf(sphere));
 	}
 });
