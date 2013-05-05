@@ -30,3 +30,18 @@ if(!Object.seal &&
 		return object;
 	};
 }
+
+// list 8-9 Object.createの実装例
+
+if(!Object.create && Object.defineProperties){
+	Object.create = function (object, properties) {
+		function F () {}
+		F.prototype = object;
+		var obj = new F();
+
+		if(typeof properties != "undefined"){
+			Object.defineProperties(obj, properties);
+		}
+		return obj;
+	};
+}
