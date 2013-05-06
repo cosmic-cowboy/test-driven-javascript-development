@@ -15,4 +15,27 @@
 		this.tabs = document.getElementById("tabs");
 	}
 
+	// list 9-5 createメソッドを対象とするテストケース
+	TestCase("TabControllerCreateTest", {
+
+		setUp : setUp,
+
+		"test should fail without element" : function () {
+			assertException(function () {
+				tabController.create();
+			},"TypeError");
+		},
+		"test should fail without element class" : function () {
+			assertException(function () {
+				tabController.create({});
+			}, "TypeError");
+		},
+		"test should return object" : function () {
+			var controller = tabController.create(this.tabs);
+
+			assertClassName("js-tab-controller",this.tabs);
+		}
+
+	});
+
 }());
