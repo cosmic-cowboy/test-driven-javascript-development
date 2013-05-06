@@ -9,6 +9,22 @@
 	var dom = tddjs.dom;
 	var ol = document.getElementById("news-tabs");
 
+	// list 9-11 トグルするパネルを探す
+	function getPanel (element) {
+		if (!element || typeof element.href != "string") {
+			return;
+		}
+
+		var target = element.href.replace(/.*#/,"");
+		var panel = document.getElementsByTagName(target)[0];
+
+		while(panel && panel.tagName.toLowerCase() != "div"){
+			panel = panel.parentNode;
+		}
+
+		return panel;
+	}
+
 	try{
 		var controller = tddjs.ui.tabController.create(ol);
 		dom.addClassName(ol.parentNode, "js-tabs");
