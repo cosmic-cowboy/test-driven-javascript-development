@@ -1,10 +1,11 @@
-// list 10-3 機能検出を使ってイベントの処理方法を変える
+// list 10-4 機能の型チェック
 
 
 function addEventHandler (element, type, listener) {
-	if(element.addEventListener){
+	if(typeof element.addEventListener == "function"){
 		element.addEventListener(type, listener, false);
-	}else if(element.attachEvent && element.call){
+	}else if(typeof element.attachEvent == "function" &&
+			typeof element.call == "function"){
 		element.attachEvent("on" + type, function () {
 			return listener.call(element, window.event);
 		});
