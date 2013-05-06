@@ -20,7 +20,15 @@
 		return tabs;
 	}
 
-	function handleTabClick (event) {}
+	// list 9-7 handleTabClickの実装
+	function handleTabClick (event) {
+		var target = event.target || event.srcElement;
+
+		while(target && target.nodeType != 1){
+			target = target.parentNode;
+		}
+		this.activateTab(target);
+	}
 
 	tddjs.namespace("ui").tabController = {
 		create : create,
