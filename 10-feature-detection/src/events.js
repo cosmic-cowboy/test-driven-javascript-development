@@ -1,13 +1,16 @@
-// list 10-2 オブジェクトの検出を使ったブラウザの推測
-// 悪い例
-// IEがグローバルなActiveXObjectを提供していることを利用
+// list 10-3 機能検出を使ってイベントの処理方法を変える
+
 
 function addEventHandler (element, type, listener) {
-	if(window.ActiveXObject){
+	if(element.addEventListener){
+		element.addEventListener(type, listener, false);
+	}else if(element.attachEvent && element.call){
 		element.attachEvent("on" + type, function () {
 			return listener.call(element, window.event);
 		});
 	}else{
-		element.addEventListener(type, listener, false);
+
+		// イベントプロパティにグレードダウンするか、処理を中止する
+
 	}
 }
