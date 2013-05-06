@@ -1,11 +1,9 @@
-// list 10-4 機能の型チェック
-
+// list 10-8 addEventHandlerの機能検出コードの改良
 
 function addEventHandler (element, type, listener) {
-	if(typeof element.addEventListener == "function"){
+	if(tddjs.isHostMethod(element, "addEventListener")){
 		element.addEventListener(type, listener, false);
-	}else if(typeof element.attachEvent == "function" &&
-			typeof element.call == "function"){
+	}else if(tddjs.isHostMethod(element, "attachEvent") && listener.call){
 		element.attachEvent("on" + type, function () {
 			return listener.call(element, window.event);
 		});
