@@ -31,11 +31,6 @@
 		this.activateTab(target);
 	}
 
-	tddjs.namespace("ui").tabController = {
-		create : create,
-		handleTabClick : handleTabClick
-	};
-
 	// list 9-9 activateTabの実装
 
 	function activateTab (element) {
@@ -50,12 +45,14 @@
 		var previous = this.prevTab;
 		this.prevTab = element;
 
-		this.onTagChange(element, previous);
+		this.onTabChange(element, previous);
 	}
 
 	tddjs.namespace('ui').tabController = {
+		create : create,
+		handleTabClick : handleTabClick,
 		activateTab : activateTab,
-		onTagChange : function (anchor, previous) {},
+		onTabChange : function (anchor, previous) {},
 		tabTagName : "a"
 	};
 }());

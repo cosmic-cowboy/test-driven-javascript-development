@@ -12,7 +12,7 @@
 	// list 9-11 トグルするパネルを探す
 	function getPanel (element) {
 		if (!element || typeof element.href != "string") {
-			return;
+			return null;
 		}
 
 		var target = element.href.replace(/.*#/,"");

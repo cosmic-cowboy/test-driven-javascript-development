@@ -3,14 +3,11 @@
 	var tabController = tddjs.ui.tabController;
 
 	function setUp () {
-
-		// すべてのテストケースがこのsetUpを共有できる
-		// DOC
-		// <ol id="news-tabs" class="nav">
-		//	<li><a href="#news">Latest news</a></li>
-		//	<li><a href="#sports">Sports</a></li>
-		//	<li><a href="#economy">Economy</a></li>
-		// </ol>
+		/*:DOC += <ol id="tabs">
+			<li><a href="#news">News</a></li>
+			<li><a href="#sports">Sports</a></li>
+			<li><a href="#economy">Economy</a></li>
+		</ol>*/
 
 		this.tabs = document.getElementById("tabs");
 	}
@@ -33,7 +30,7 @@
 		"test should return object" : function () {
 			var controller = tabController.create(this.tabs);
 
-			assertClassName("js-tab-controller",this.tabs);
+			assertObject(controller);
 		}
 
 	});
@@ -43,14 +40,14 @@
 		setUp : function  () {
 			setUp.call(this);
 			this.controller = tabController.create(this.tabs);
-			this.links = this.tabs.getElementByTagName("a");
-			this.lis = this.tabs.getElementByTagName("li");
+			this.links = this.tabs.getElementsByTagName("a");
+			this.lis = this.tabs.getElementsByTagName("li");
 		},
 
 		"test should not fail without anchor" : function () {
 			var controller = this.controller;
 
-			assertException(function () {
+			assertNoException(function () {
 				controller.activateTab();
 			});
 		},
