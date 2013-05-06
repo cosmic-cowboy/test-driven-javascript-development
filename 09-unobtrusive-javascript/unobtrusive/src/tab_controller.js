@@ -21,6 +21,7 @@
 	}
 
 	// list 9-7 handleTabClickの実装
+
 	function handleTabClick (event) {
 		var target = event.target || event.srcElement;
 
@@ -35,5 +36,26 @@
 		handleTabClick : handleTabClick
 	};
 
-	// body...
+	// list 9-9 activateTabの実装
+
+	function activateTab (element) {
+		if(!element || !element.tagName ||
+			element.tagName.toLowerCase() != this.tabTagName){
+			return;
+		}
+
+		var className = "activate-tab";
+		dom.removeClassName(this.prevTab, className);
+		dom.addClassName(element, className);
+		var previous = this.prevTab;
+		this.prevTab = element;
+
+		this.onTagChange(element, previous);
+	}
+
+	tddjs.namespace('ui').tabController = {
+		activateTab : activateTab,
+		onTagChange : function (anchor, previous) {},
+		tabTagName : "a"
+	};
 }());
