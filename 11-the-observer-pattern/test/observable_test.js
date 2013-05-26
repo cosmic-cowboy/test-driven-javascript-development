@@ -14,3 +14,17 @@ TestCase("ObservableAddObserverTest", {
 		assertEquals(observers, observable.observers);
 	}
 });
+
+// list 11-15 既存の観察者があるときには、hasObserverがtrueを返すことを確かめる
+
+TestCase("ObservableHasObserverTest", {
+	"test should return true when has observer" : function () {
+		var observable = new tddjs.util.Observable();
+		var observer = function () {};
+
+		observable.addObserver(observer);
+
+		assertTrue(observable.hasObserver(observer));
+
+	}
+});
