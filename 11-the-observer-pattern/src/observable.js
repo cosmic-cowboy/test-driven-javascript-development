@@ -10,4 +10,9 @@ tddjs.namespace('util');
 	}
 	tddjs.util.Observable = Observable;
 
+	// list 11-9 addObserverメソッドを追加する
+	function addObserver () {
+	}
+	Observable.prototype.addObserver = addObserver;
+
 }());
