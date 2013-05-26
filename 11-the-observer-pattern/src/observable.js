@@ -20,4 +20,10 @@ tddjs.namespace('util');
 	}
 	Observable.prototype.addObserver = addObserver;
 
+	// list 11-16 hasObserverからの応答をハードコードする
+	function hasObserver (observer) {
+		return true;
+	}
+	Observable.prototype.hasObserver = hasObserver;
+
 }());
