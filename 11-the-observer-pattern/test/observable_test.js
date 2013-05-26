@@ -1,8 +1,9 @@
 // list 11-3 addObserverが内部配列に観察者を追加することを確かめる
 // list 11-13 ハードコードされたソリューションの問題点を暴く
+// list 11-21 重複するテストを取り除く
 
 TestCase("ObservableAddObserverTest", {
-	"test should store function" : function () {
+	"test should store functions" : function () {
 		// 観察対象オブジェクト
 		var observable = new tddjs.util.Observable();
 		// 観察者
@@ -11,22 +12,14 @@ TestCase("ObservableAddObserverTest", {
 		observable.addObserver(observers[0]);
 		observable.addObserver(observers[1]);
 
-		assertEquals(observers, observable.observers);
+		assertTrue(observable.hasObserver(observers[0]));
+		assertTrue(observable.hasObserver(observers[1]));
 	}
 });
 
 // list 11-15 既存の観察者があるときには、hasObserverがtrueを返すことを確かめる
 
 TestCase("ObservableHasObserverTest", {
-	"test should return true when has observer" : function () {
-		var observable = new tddjs.util.Observable();
-		var observer = function () {};
-
-		observable.addObserver(observer);
-
-		assertTrue(observable.hasObserver(observer));
-
-	},
 
 	// list 11-17 観察者がいないときには、hasObserverがfalseを返すことを確かめる
 	"test should return false when no observers" : function () {
