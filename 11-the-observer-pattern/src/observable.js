@@ -21,8 +21,9 @@ tddjs.namespace('util');
 	Observable.prototype.addObserver = addObserver;
 
 	// list 11-16 hasObserverからの応答をハードコードする
+	// list 11-18 観察者がいるかどうかを実際にチェックする
 	function hasObserver (observer) {
-		return true;
+		return this.observers.indexOf(observer) >= 0;
 	}
 	Observable.prototype.hasObserver = hasObserver;
 
