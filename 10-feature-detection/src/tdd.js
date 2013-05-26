@@ -175,6 +175,26 @@ tddjs.isHostMethod = (function () {
 	}
 }());
 
+// list 10-11 イベントの機能検出
+tddjs.isEventSupported = (function () {
+  var TAGNAMES = {
+    select : "input",
+    change : "input",
+    submit : "form",
+    reset : "form",
+    error : "img",
+    load : "img",
+    abort : "img"
+  };
+
+  function isEventSupported (eventName) {
+    var tagName = TAGNAMES[eventName];
+    var el = document.createElement(tagName || "div");
+    eventName = "on" + eventName;
+    var isSupported = (eventName, "return;");
+  }
+})
+
 
 
 
