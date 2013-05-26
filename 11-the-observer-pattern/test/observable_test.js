@@ -26,5 +26,13 @@ TestCase("ObservableHasObserverTest", {
 
 		assertTrue(observable.hasObserver(observer));
 
+	},
+
+	// list 11-17 観察者がいないときには、hasObserverがfalseを返すことを確かめる
+	"test should return false when no observers" : function () {
+		var observable = new tddjs.util.Observable();
+
+		assertFalse(observable.hasObserver(function () {}));
+
 	}
 });
