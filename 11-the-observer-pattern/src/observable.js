@@ -11,7 +11,9 @@ tddjs.namespace('util');
 	tddjs.util.Observable = Observable;
 
 	// list 11-9 addObserverメソッドを追加する
-	function addObserver () {
+	// list 11-11 配列をハードコードする
+	function addObserver (observer) {
+		this.observers = [observer]
 	}
 	Observable.prototype.addObserver = addObserver;
 
