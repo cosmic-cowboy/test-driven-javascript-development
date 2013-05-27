@@ -34,4 +34,13 @@ tddjs.namespace('util');
 
 	Observable.prototype.hasObserver = hasObserver;
 
+	// list 11-23 すべての観察者を呼び出す
+	function notifyObservers () {
+		for (var i = 0, l = this.observers.length; i < l; i++) {
+			this.observers[i]();
+		}
+	}
+
+	Observable.prototype.notifyObservers = notifyObservers;
+
 }());
