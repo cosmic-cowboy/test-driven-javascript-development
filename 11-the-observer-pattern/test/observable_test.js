@@ -65,5 +65,31 @@ TestCase("ObservableNotifyObserversTest", {
 		observable.notifyObservers("String", 1, 32);
 
 		assertEquals(["String", 1, 32], actual);
+	},
+
+	// list 11-28 クラッシュした観察者があってもnotifyObserversが最後まで処理をすることを確かめる
+	"test should notify all even when some fail" : function () {
+		var observable = new tddjs.util.Observable();
+		var observer1 = function () { throw new Error("Oops"); };
+		var observer2 = function () { observer2.called = true; };
+
+		observable.addObserver(observer1);
+		observable.addObserver(observer2);
+		observable.notifyObservers();
+
+		assertTrue(observer2.called);
+
 	}
 });
+
+
+
+
+
+
+
+
+
+
+
+
