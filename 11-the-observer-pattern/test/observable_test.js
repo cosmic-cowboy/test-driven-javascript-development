@@ -14,6 +14,13 @@ TestCase("ObservableAddObserverTest", {
 
 		assertTrue(observable.hasObserver(observers[0]));
 		assertTrue(observable.hasObserver(observers[1]));
+	},
+
+	"test should throw for uncallable observer" : function () {
+		var observable = new tddjs.util.Observable();
+		assertException(function () {
+			observable.addObserver({});
+		}, "TypeError");
 	}
 });
 
