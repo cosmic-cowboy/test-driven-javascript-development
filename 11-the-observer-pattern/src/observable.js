@@ -15,7 +15,11 @@ tddjs.namespace('util');
 
 	// list 11-9 addObserverメソッドを追加する
 	// list 11-11 配列をハードコードする
+	// list 11-27 呼び出せない観察者を追加した時に例外を投げる
 	function addObserver (observer) {
+		if(typeof observer != "function"){
+			throw new TypeError("observer is not function");
+		}
 		this.observers.push(observer);
 	}
 	Observable.prototype.addObserver = addObserver;
