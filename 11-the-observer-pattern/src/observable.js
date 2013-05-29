@@ -42,7 +42,9 @@ tddjs.namespace('util');
 	// list 11-25 applyを使ってnotifyObserversに渡された引数を渡す
 	function notifyObservers () {
 		for (var i = 0, l = this.observers.length; i < l; i++) {
-			this.observers[i].apply(this, arguments);
+			try {
+				this.observers[i].apply(this, arguments);				
+			} catch(e){}
 		}
 
 	}
