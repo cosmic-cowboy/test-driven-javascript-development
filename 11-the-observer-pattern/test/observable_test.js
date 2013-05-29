@@ -44,5 +44,19 @@ TestCase("ObservableNotifyObserversTest", {
 
 		assertTrue(observer1.called);
 		assertTrue(observer2.called);
+	},
+
+	// list 11-24 notifyObserversに渡されて引数が観察者に渡されることを確かめる
+	"test should pass through arguments" : function () {
+		var observable = new tddjs.util.Observable();
+		var actual;
+
+		observable.addObserver(function () {
+			actual = arguments;
+		});
+
+		observable.notifyObservers("String", 1, 32);
+
+		assertEquals(["String", 1, 32], actual);
 	}
 });
