@@ -18,9 +18,13 @@ tddjs.namespace('util');
 	// list 11-9 addObserverメソッドを追加する
 	// list 11-11 配列をハードコードする
 	// list 11-27 呼び出せない観察者を追加した時に例外を投げる
+	// list 11-36 observers配列が存在しなければ、配列を定義する
 	function addObserver (observer) {
 		if(typeof observer != "function"){
 			throw new TypeError("observer is not function");
+		}
+		if(!this.observers){
+			this.observers = [];
 		}
 		this.observers.push(observer);
 	}
