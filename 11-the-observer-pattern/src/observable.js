@@ -3,6 +3,7 @@
 tddjs.namespace('util');
 
 // list 11-7 コンストラクタを追加する
+// list 11-31 任意のオブジェクトの観察（サブクラスの生成）
 
 (function () {
 

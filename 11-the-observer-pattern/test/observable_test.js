@@ -100,10 +100,17 @@ TestCase("ObservableNotifyObserversTest", {
 
 		assertEquals(observer1, calls[0]);
 		assertEquals(observer2, calls[1]);
+	},
+
+	// list 11-34 addObserverの前に呼び出してもnotifyObserversは失敗しないことを確認
+	"test should not fail if no observers" : function () {
+		var observable = new tddjs.util.Observable();
+
+		assertNoException(function () {
+			observable.notifyObservers();
+		});
 	}
 });
-
-
 
 
 
