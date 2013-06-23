@@ -33,7 +33,11 @@ tddjs.namespace('util');
 	// list 11-16 hasObserverからの応答をハードコードする
 	// list 11-18 観察者がいるかどうかを実際にチェックする
 	// list 11-20 手作業で配列をループで処理する
+	// list 11-37 観察者がなければ、falseを返す
 	function hasObserver (observer) {
+		if(!this.observers){
+			return false;
+		}
 		for (var i = 0, l = this.observers.length; i < l; i++){
 			if(this.observers[i] === observer){
 				return true;
