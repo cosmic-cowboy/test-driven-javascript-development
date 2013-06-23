@@ -9,7 +9,8 @@ tddjs.namespace('util');
 
 	function Observable () {
 		// list 11-14 配列を正しく追加
-		this.observers = [];
+		// list 11-35 コンストラクタを空にする
+		// this.observers = [];
 	}
 	tddjs.util.Observable = Observable;
 
