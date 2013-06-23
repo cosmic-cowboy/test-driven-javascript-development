@@ -50,7 +50,11 @@ tddjs.namespace('util');
 
 	// list 11-23 すべての観察者を呼び出す
 	// list 11-25 applyを使ってnotifyObserversに渡された引数を渡す
+	// list 11-38 観察者がなければ、falseを返す
 	function notifyObservers () {
+		if(!this.observers){
+			return false;
+		}
 		for (var i = 0, l = this.observers.length; i < l; i++) {
 			try {
 				this.observers[i].apply(this, arguments);				
