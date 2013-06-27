@@ -1,18 +1,19 @@
 // list 11-5 util名前空間を作る
 
-tddjs.namespace('util');
+// tddjs.namespace('util');
 
 // list 11-7 コンストラクタを追加する
 // list 11-31 任意のオブジェクトの観察（サブクラスの生成）
 
 (function () {
 
-	function Observable () {
-		// list 11-14 配列を正しく追加
-		// list 11-35 コンストラクタを空にする
-		// this.observers = [];
-	}
-	tddjs.util.Observable = Observable;
+	// list 11-39 コンストラクタからオブジェクトへ コンストラクタを削除
+	// function Observable () {
+	// 	// list 11-14 配列を正しく追加
+	// 	// list 11-35 コンストラクタを空にする
+	// 	// this.observers = [];
+	// }
+	// tddjs.util.Observable = Observable;
 
 
 	// list 11-9 addObserverメソッドを追加する
@@ -28,7 +29,7 @@ tddjs.namespace('util');
 		}
 		this.observers.push(observer);
 	}
-	Observable.prototype.addObserver = addObserver;
+	// Observable.prototype.addObserver = addObserver;
 
 	// list 11-16 hasObserverからの応答をハードコードする
 	// list 11-18 観察者がいるかどうかを実際にチェックする
@@ -46,7 +47,7 @@ tddjs.namespace('util');
 		return false;
 	}
 
-	Observable.prototype.hasObserver = hasObserver;
+	// Observable.prototype.hasObserver = hasObserver;
 
 	// list 11-23 すべての観察者を呼び出す
 	// list 11-25 applyを使ってnotifyObserversに渡された引数を渡す
@@ -63,6 +64,11 @@ tddjs.namespace('util');
 
 	}
 
-	Observable.prototype.notifyObservers = notifyObservers;
-
+	// Observable.prototype.notifyObservers = notifyObservers;
+	// list 11-39 コンストラクタからオブジェクトへ メソッドをオブジェクトに追加
+	tddjs.namespace('util').observable = {
+		addObserver : addObserver,
+		hasObserver : hasObserver,
+		notifyObservers : notifyObservers
+	}
 }());
