@@ -123,6 +123,21 @@ TestCase("ObservableNotifyObserversTest", {
 		assertNoException(function () {
 			observable.notify("event");
 		});
+	},
+
+	// list 11-45 登録された観察者だけが呼び出されていることを確認
+	"test should notify relevant observers only" : function () {
+		
+		var calls = [];
+		this.observable.observe("event", function () {
+			calls.push("event");
+		})
+		this.observable.observe("other", function () {
+			calls.push("other");
+		})
+		this.observable.notify("other");
+
+		assertEquals(["other"], calls);
 	}
 });
 
