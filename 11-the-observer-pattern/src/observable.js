@@ -20,7 +20,8 @@
 	// list 11-11 配列をハードコードする
 	// list 11-27 呼び出せない観察者を追加した時に例外を投げる
 	// list 11-36 observers配列が存在しなければ、配列を定義する
-	function addObserver (observer) {
+	// list 11-41 メソッドの名称変更
+	function observe (observer) {
 		if(typeof observer != "function"){
 			throw new TypeError("observer is not function");
 		}
@@ -50,9 +51,10 @@
 	// Observable.prototype.hasObserver = hasObserver;
 
 	// list 11-23 すべての観察者を呼び出す
-	// list 11-25 applyを使ってnotifyObserversに渡された引数を渡す
+	// list 11-25 applyを使ってnotifyObserverに渡された引数を渡す
 	// list 11-38 観察者がなければ、falseを返す
-	function notifyObservers () {
+	// list 11-41 メソッドの名称変更
+	function notify () {
 		if(!this.observers){
 			return false;
 		}
@@ -64,11 +66,12 @@
 
 	}
 
-	// Observable.prototype.notifyObservers = notifyObservers;
+	// Observable.prototype.notify = notify;
 	// list 11-39 コンストラクタからオブジェクトへ メソッドをオブジェクトに追加
+	// list 11-41 メソッドの名称変更
 	tddjs.namespace('util').observable = {
-		addObserver : addObserver,
+		observe : observe,
 		hasObserver : hasObserver,
-		notifyObservers : notifyObservers
+		notify : notify
 	}
 }());
