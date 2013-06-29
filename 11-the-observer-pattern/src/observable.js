@@ -21,7 +21,8 @@
 	// list 11-27 呼び出せない観察者を追加した時に例外を投げる
 	// list 11-36 observers配列が存在しなければ、配列を定義する
 	// list 11-41 メソッドの名称変更
-	function observe (observer) {
+	// list 11-43 仮引数eventを追加（複数イベントに対応）
+	function observe (event, observer) {
 		if(typeof observer != "function"){
 			throw new TypeError("observer is not function");
 		}
