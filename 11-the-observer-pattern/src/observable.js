@@ -37,7 +37,7 @@
 	// list 11-18 観察者がいるかどうかを実際にチェックする
 	// list 11-20 手作業で配列をループで処理する
 	// list 11-37 観察者がなければ、falseを返す
-	function hasObserver (observer) {
+	function hasObserver (event, observer) {
 		if(!this.observers){
 			return false;
 		}
@@ -55,13 +55,15 @@
 	// list 11-25 applyを使ってnotifyObserverに渡された引数を渡す
 	// list 11-38 観察者がなければ、falseを返す
 	// list 11-41 メソッドの名称変更
+	// list 11-44 第1引数以外の引数を観察者に渡す
 	function notify () {
 		if(!this.observers){
 			return false;
 		}
+
 		for (var i = 0, l = this.observers.length; i < l; i++) {
 			try {
-				this.observers[i].apply(this, arguments);				
+				this.observers[i].apply(this, arguments);
 			} catch(e){}
 		}
 
