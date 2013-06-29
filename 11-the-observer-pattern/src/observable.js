@@ -60,10 +60,12 @@
 		if(!this.observers){
 			return false;
 		}
+		// var args = Array.prototype.slice(arguments, 1);
+		arguments.slice = Array.prototype.slice;
 
 		for (var i = 0, l = this.observers.length; i < l; i++) {
 			try {
-				this.observers[i].apply(this, arguments);
+				this.observers[i].apply(this, arguments.slice(1));
 			} catch(e){}
 		}
 
