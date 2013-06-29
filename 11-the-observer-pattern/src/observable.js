@@ -15,6 +15,22 @@
 	// }
 	// tddjs.util.Observable = Observable;
 
+	// list 11-46 配列ではなくオブジェクトに観察者を格納する
+	function _observers (observable, event) {
+		// まずobserverを格納するオブジェクトを作成
+		if(!observable.observers){
+			observable.observers = {};
+		}
+		// オブジェクトの中にeventごとの配列を用意
+		// ここにアクションが入る
+		if(!observable.observers[event]){
+			observable.observers[event] = [];
+		}
+
+		// 返却値には引数にしていされたeventの配列が返却される
+		// アクションを追加するも良し、確認するも良し。
+		return observable.observers[event];
+	}
 
 	// list 11-9 addObserverメソッドを追加する
 	// list 11-11 配列をハードコードする
@@ -22,14 +38,16 @@
 	// list 11-36 observers配列が存在しなければ、配列を定義する
 	// list 11-41 メソッドの名称変更
 	// list 11-43 仮引数eventを追加（複数イベントに対応）
+	// list 11-46 配列ではなくオブジェクトに観察者を格納する
 	function observe (event, observer) {
 		if(typeof observer != "function"){
 			throw new TypeError("observer is not function");
 		}
-		if(!this.observers){
-			this.observers = [];
-		}
-		this.observers.push(observer);
+		// if(!this.observers){
+		// 	this.observers = [];
+		// }
+
+		_observers(this, event).push(observer);
 	}
 	// Observable.prototype.addObserver = addObserver;
 
@@ -37,12 +55,15 @@
 	// list 11-18 観察者がいるかどうかを実際にチェックする
 	// list 11-20 手作業で配列をループで処理する
 	// list 11-37 観察者がなければ、falseを返す
+	// list 11-46 配列ではなくオブジェクトに観察者を格納する
 	function hasObserver (event, observer) {
-		if(!this.observers){
-			return false;
-		}
-		for (var i = 0, l = this.observers.length; i < l; i++){
-			if(this.observers[i] === observer){
+		// if(!this.observers){
+		// 	return false;
+		// }
+		// 確認するだけでeventの配列ができてしまうのが、気になりますが...
+		var observers = _observers(this, event);
+		for (var i = 0, l = observers.length; i < l; i++){
+			if(observers[i] === observer){
 				return true;
 			}
 		}
@@ -56,16 +77,18 @@
 	// list 11-38 観察者がなければ、falseを返す
 	// list 11-41 メソッドの名称変更
 	// list 11-44 第1引数以外の引数を観察者に渡す
-	function notify () {
-		if(!this.observers){
-			return false;
-		}
-		// var args = Array.prototype.slice(arguments, 1);
+	// list 11-46 配列ではなくオブジェクトに観察者を格納する
+	function notify (event) {
+		// if(!this.observers){
+		// 	return false;
+		// }
+		var observers = _observers(this, event);
 		arguments.slice = Array.prototype.slice;
+		// var args = Array.prototype.slice(arguments, 1);
 
-		for (var i = 0, l = this.observers.length; i < l; i++) {
+		for (var i = 0, l = observers.length; i < l; i++) {
 			try {
-				this.observers[i].apply(this, arguments.slice(1));
+				observers[i].apply(this, arguments.slice(1));
 			} catch(e){}
 		}
 
