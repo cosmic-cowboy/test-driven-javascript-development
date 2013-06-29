@@ -2,6 +2,7 @@
 // list 11-13 ハードコードされたソリューションの問題点を暴く
 // list 11-21 重複するテストを取り除く
 // list 11-41 メソッドの名称変更
+// list 11-42 呼び出しの更新（複数イベントに対応）
 
 TestCase("ObservableAddObserverTest", {
 	// list 11-40 observableオブジェクトを使用
@@ -14,8 +15,8 @@ TestCase("ObservableAddObserverTest", {
 		// 観察者
 		var observers = [function () {}, function () {}];
 
-		this.observable.observe(observers[0]);
-		this.observable.observe(observers[1]);
+		this.observable.observe("event", observers[0]);
+		this.observable.observe("event", observers[1]);
 
 		assertTrue(this.observable.hasObserver(observers[0]));
 		assertTrue(this.observable.hasObserver(observers[1]));
@@ -58,8 +59,8 @@ TestCase("ObservableNotifyObserversTest", {
 		var observer1 = function () { observer1.called = true; };
 		var observer2 = function () { observer2.called = true; };
 
-		this.observable.observe(observer1);
-		this.observable.observe(observer2);
+		this.observable.observe("event", observer1);
+		this.observable.observe("event", observer2);
 		this.observable.notify();
 
 		assertTrue(observer1.called);
@@ -71,7 +72,7 @@ TestCase("ObservableNotifyObserversTest", {
 
 		var actual;
 
-		this.observable.observe(function () {
+		this.observable.observe("event", function () {
 			actual = arguments;
 		});
 
@@ -86,8 +87,8 @@ TestCase("ObservableNotifyObserversTest", {
 		var observer1 = function () { throw new Error("Oops"); };
 		var observer2 = function () { observer2.called = true; };
 
-		this.observable.observe(observer1);
-		this.observable.observe(observer2);
+		this.observable.observe("event", observer1);
+		this.observable.observe("event", observer2);
 		this.observable.notify();
 
 		assertTrue(observer2.called);
@@ -106,8 +107,8 @@ TestCase("ObservableNotifyObserversTest", {
 			calls.push(observer2);
 		};
 
-		this.observable.observe(observer1);
-		this.observable.observe(observer2);
+		this.observable.observe("event", observer1);
+		this.observable.observe("event", observer2);
 
 		this.observable.notify();
 
