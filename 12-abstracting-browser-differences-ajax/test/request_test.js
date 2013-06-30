@@ -10,6 +10,8 @@
 // list 12-16 ajax.createを安元にスタブに置き換え、復元する
 //（list 12-15ではテストが不合格だとメソッドが復元されない）
 // list 12-19 スタブヘルパーを使ってコードを書き直す
+// list 12-20 openメソッドが正しく使われていることをテスト
+// 取得したXMLHttpRequestオブジェクトのopenメソッドが呼び出せるようにする
 
 (function (){
 
@@ -36,10 +38,26 @@
 		},
 		"test should obtain an XMLHttpRequest object" : function () {
 			// スタブ関数で上書き
-			ajax.create = stubFn();
+			ajax.create = stubFn({
+				open : function () {}
+			});
 			ajax.get("/url");
 
 			assert(ajax.create.called);
+		},
+		"test should call open with method, url, async flag" : function () {
+			var actual;
+
+			// スタブ関数で上書き
+			ajax.create = stubFn({
+				open : function () {
+					actual = arguments;
+				}
+			});
+			var url = "/url";
+			ajax.get(url);
+
+			assertEquals(["GET", url, true], actual);
 		}
 	});
 
