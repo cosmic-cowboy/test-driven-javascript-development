@@ -11,6 +11,7 @@
 // ajax.getはajax.createメソッドに依存しているため、ajax.getを使う前に、ajax.createがあることを確認
 // list 12-29 空のonreadystatechangeハンドラを設定
 // list 12-32 sendメソッドを呼び出す
+// list 12-34　成功コールバックを受け付け、呼び出す
 
 (function () {
 
@@ -19,14 +20,25 @@
 	if(!ajax.create){
 		return;
 	}
-	function get(url) {
+
+	function requestComplete (transport, options) {
+		if(transport.status === 200){
+			options.success(transport);
+		}
+	}
+
+	function get(url, options) {
 		if(typeof url !== "string"){
 			throw new TypeError("URL should be string");
 		}
 		var transport = tddjs.ajax.create();
 
 		transport.open("GET", url, true);
-		transport.onreadystatechange = function () {};
+		transport.onreadystatechange = function () {
+			if(transport.readyState === 4){
+				requestComplete(transport, options);
+			}
+		};
 		transport.send();
 	}
 
