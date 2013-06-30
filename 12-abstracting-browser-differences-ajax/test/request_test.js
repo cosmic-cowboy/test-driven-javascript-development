@@ -18,7 +18,8 @@
 // 12.4.3 状態変更の処理の準備
 // list 12-28 レディ状態ハンドラに関数が代入されていることを確認
 // list 12-31 sendメソッドが呼び出されたことを確認
-
+// 12.4.4 状態変更の処理
+// list 12-33 レディ状態ハンドラをテストして要求が成功したがどうか確認
 
 (function (){
 
@@ -67,6 +68,34 @@
 			ajax.get("/url");
 
 			assert(this.xhr.send.called);
+		}
+	});
+
+	TestCase("ReadyStateHandlerTest", {
+		// 元のメソッドの参照を保存
+		setUp : function () {
+			this.ajaxCreate = ajax.create;
+			this.xhr = Object.create(fakeXMLHtppRequest);
+			ajax.create = stubFn(this.xhr);
+		},
+
+		// 元のメソッドを復元
+		tearDown : function () {
+			ajax.create = this.ajaxCreate;
+		},
+
+		"test should call success handler for status 200" : function () {
+			// レディ状態：要求完了時 4
+			this.xhr.readyState = 4;
+			// HTTPステータス 200
+			this.xhr.status = 200;
+			// 成功時のAction
+			var success = stubFn();
+
+			ajax.get("/url", {success : success});
+			this.xhr.onreadystatechange();
+
+			assert(success.called);
 		}
 	});
 
