@@ -4,14 +4,21 @@
 // list 12-9 tddjs.ajax.getが定義されていることを確認
 // 12.4.1 URLの要件とする
 // list 12-11 URLが必須とされていることをテストする
+// list 12-13 テストにajax名前空間を「インポート」する
 
-TestCase("GetRequestTest", {
-	"test should define get method" : function () {
-		assertFunction(tddjs.ajax.get);
-	},
-	"test should throw error without url" : function () {
-		assertException(function () {
-			tddjs.ajax.get();
-		}, "TypeError");
-	}
-});
+(function (){
+
+	var ajax = tddjs.ajax;
+
+	TestCase("GetRequestTest", {
+		"test should define get method" : function () {
+			assertFunction(ajax.get);
+		},
+		"test should throw error without url" : function () {
+			assertException(function () {
+				ajax.get();
+			}, "TypeError");
+		}
+	});
+
+}());
