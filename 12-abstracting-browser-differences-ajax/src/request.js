@@ -4,9 +4,17 @@
 // list 12-10 tddjs.ajax.getを定義する
 // 12.4.1 URLの要件とする
 // list 12-12 URLが文字列でなければ例外を投げる
+// list 12-14 ソースにajax名前空間を「インポート」する
 
-tddjs.namespace("ajax").get = function (url) {
-	if(typeof url !== "string"){
-		throw new TypeError("URL should be string");
+(function () {
+
+	var ajax = tddjs.namespace("ajax");
+
+	function get(url) {
+		if(typeof url !== "string"){
+			throw new TypeError("URL should be string");
+		}
 	}
-};
+
+	ajax.get = get;
+}());
