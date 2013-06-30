@@ -5,7 +5,8 @@
 //（オブジェクトがないとexceptionが発生する）
 // list 12-7 あらかじめサポートされているかどうかをチェックする
 //（即時関数を利用して、ロード時に一回だけ実行されるようにする）
-
+// 12.3.4 より強力な機能検出
+// list 12-8 より強い機能検出の追加（もっと自信を持てるように）
 
 (function () {
 	var xhr;
@@ -26,8 +27,15 @@
 		try{
 			// 実行できると、createに代入、実行できないとexception
 			xhr = options[i]();
-			ajax.create = options[i];
-			break;
+
+			// オブジェクトの機能テスト
+			if(typeof xhr.readyState === "number" &&
+				tddjs.isHostMethod(xhr, "open") &&
+				tddjs.isHostMethod(xhr, "send") &&
+				tddjs.isHostMethod(xhr, "setRequestHeader")){
+				ajax.create = options[i];
+				break;
+			}
 		} catch(e){
 			console.log("error:" + options[i]);
 		}
