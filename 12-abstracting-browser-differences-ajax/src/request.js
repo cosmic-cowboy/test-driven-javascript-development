@@ -7,11 +7,15 @@
 // list 12-14 ソースにajax名前空間を「インポート」する
 // list 12-17 XMLHttpRequestオブジェクトをつくる
 // list 12-21 openを呼び出す
-
+// list 12-27 ajax.createが定義されていない場合には途中で終了する
+// ajax.getはajax.createメソッドに依存しているため、ajax.getを使う前に、ajax.createがあることを確認
 (function () {
 
 	var ajax = tddjs.namespace("ajax");
 
+	if(!ajax.create){
+		return;
+	}
 	function get(url) {
 		if(typeof url !== "string"){
 			throw new TypeError("URL should be string");
