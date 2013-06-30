@@ -6,6 +6,8 @@
 // list 12-12 URLが文字列でなければ例外を投げる
 // list 12-14 ソースにajax名前空間を「インポート」する
 // list 12-17 XMLHttpRequestオブジェクトをつくる
+// list 12-21 openを呼び出す
+
 (function () {
 
 	var ajax = tddjs.namespace("ajax");
@@ -15,6 +17,8 @@
 			throw new TypeError("URL should be string");
 		}
 		var transport = tddjs.ajax.create();
+
+		transport.open("GET", url, true);
 	}
 
 	ajax.get = get;
