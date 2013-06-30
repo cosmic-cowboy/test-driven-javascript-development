@@ -17,6 +17,9 @@
 // スタブをsetUpで事前に作成し、TestCase内で共有する
 // 12.4.3 状態変更の処理の準備
 // list 12-28 レディ状態ハンドラに関数が代入されていることを確認
+// list 12-31 sendメソッドが呼び出されたことを確認
+
+
 (function (){
 
 	var ajax = tddjs.ajax;
@@ -59,6 +62,11 @@
 			ajax.get("/url");
 			assertFunction(this.xhr.onreadystatechange);
 			assertFunction(ajax.create().onreadystatechange);
+		},
+		"test should call send" : function () {
+			ajax.get("/url");
+
+			assert(this.xhr.send.called);
 		}
 	});
 
