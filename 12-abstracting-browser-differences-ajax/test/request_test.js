@@ -12,6 +12,7 @@
 // list 12-19 スタブヘルパーを使ってコードを書き直す
 // list 12-20 openメソッドが正しく使われていることをテスト
 // 取得したXMLHttpRequestオブジェクトのopenメソッドが呼び出せるようにする
+// list 12-23 改良されたスタブ作成ヘルパーを使う
 
 (function (){
 
@@ -46,18 +47,27 @@
 			assert(ajax.create.called);
 		},
 		"test should call open with method, url, async flag" : function () {
-			var actual;
+
+			var openStub = stubFn();
+			assertUndefined(openStub.args);
+			assertFalse(openStub.called);
 
 			// スタブ関数で上書き
 			ajax.create = stubFn({
-				open : function () {
-					actual = arguments;
-				}
+				open : openStub
 			});
+			assertUndefined(ajax.create.args);
+			assertFalse(ajax.create.called);
+
 			var url = "/url";
 			ajax.get(url);
 
-			assertEquals(["GET", url, true], actual);
+			// request.js tddjs.ajax.create()
+			assertEquals([], ajax.create.args);
+			assert(ajax.create.called);
+			// request.js transport.open("GET", url, true);
+			assert(openStub.called);
+			assertEquals(["GET", url, true], openStub.args);
 		}
 	});
 
