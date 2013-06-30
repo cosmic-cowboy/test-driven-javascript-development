@@ -9,6 +9,8 @@
 //（ajax.createをスタブに置き換えている）
 // list 12-16 ajax.createを安元にスタブに置き換え、復元する
 //（list 12-15ではテストが不合格だとメソッドが復元されない）
+// list 12-19 スタブヘルパーを使ってコードを書き直す
+
 (function (){
 
 	var ajax = tddjs.ajax;
@@ -34,9 +36,7 @@
 		},
 		"test should obtain an XMLHttpRequest object" : function () {
 			// スタブ関数で上書き
-			ajax.create = function () {
-				ajax.create.called = true;
-			};
+			ajax.create = stubFn();
 			ajax.get("/url");
 
 			assert(ajax.create.called);
