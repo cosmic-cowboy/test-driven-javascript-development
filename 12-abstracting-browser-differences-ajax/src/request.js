@@ -9,6 +9,7 @@
 // list 12-21 openを呼び出す
 // list 12-27 ajax.createが定義されていない場合には途中で終了する
 // ajax.getはajax.createメソッドに依存しているため、ajax.getを使う前に、ajax.createがあることを確認
+// list 12-29 空のonreadystatechangeハンドラを設定
 (function () {
 
 	var ajax = tddjs.namespace("ajax");
@@ -23,6 +24,7 @@
 		var transport = tddjs.ajax.create();
 
 		transport.open("GET", url, true);
+		transport.onreadystatechange = function () {};
 	}
 
 	ajax.get = get;
