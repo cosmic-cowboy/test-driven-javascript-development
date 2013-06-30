@@ -20,7 +20,8 @@
 // list 12-31 sendメソッドが呼び出されたことを確認
 // 12.4.4 状態変更の処理
 // list 12-33 レディ状態ハンドラをテストして要求が成功したがどうか確認
-
+// list 12-35 要求が成功してもコールバックがないときに対応
+// 大きな応答を返す要求では、ハンドラが何度も呼び出され、不要なオーバーヘッドが加わるため、関数呼び出しを一度にする
 (function (){
 
 	var ajax = tddjs.ajax;
@@ -96,6 +97,20 @@
 			this.xhr.onreadystatechange();
 
 			assert(success.called);
+		},
+
+		"test should not throw error without success handler" : function () {
+			// レディ状態：要求完了時 4
+			this.xhr.readyState = 4;
+			// HTTPステータス 200
+			this.xhr.status = 200;
+
+			ajax.get("/url");
+			assertNoException(
+				function(){
+					this.xhr.onreadystatechange();
+				}.bind(this)
+			);
 		}
 	});
 
