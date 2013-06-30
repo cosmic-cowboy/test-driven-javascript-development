@@ -13,7 +13,8 @@
 // list 12-20 openメソッドが正しく使われていることをテスト
 // 取得したXMLHttpRequestオブジェクトのopenメソッドが呼び出せるようにする
 // list 12-23 改良されたスタブ作成ヘルパーを使う
-
+// list 12-26 ajax.createとXMLHttpRequestの自動スタブ作成
+// スタブをsetUpで事前に作成し、TestCase内で共有する
 (function (){
 
 	var ajax = tddjs.ajax;
@@ -22,6 +23,8 @@
 		// 元のメソッドの参照を保存
 		setUp : function () {
 			this.ajaxCreate = ajax.create;
+			this.xhr = Object.create(fakeXMLHtppRequest);
+			ajax.create = stubFn(this.xhr);
 		},
 
 		// 元のメソッドを復元
@@ -38,36 +41,17 @@
 			}, "TypeError");
 		},
 		"test should obtain an XMLHttpRequest object" : function () {
-			// スタブ関数で上書き
-			ajax.create = stubFn({
-				open : function () {}
-			});
+
 			ajax.get("/url");
 
 			assert(ajax.create.called);
 		},
 		"test should call open with method, url, async flag" : function () {
 
-			var openStub = stubFn();
-			assertUndefined(openStub.args);
-			assertFalse(openStub.called);
-
-			// スタブ関数で上書き
-			ajax.create = stubFn({
-				open : openStub
-			});
-			assertUndefined(ajax.create.args);
-			assertFalse(ajax.create.called);
-
 			var url = "/url";
 			ajax.get(url);
 
-			// request.js tddjs.ajax.create()
-			assertEquals([], ajax.create.args);
-			assert(ajax.create.called);
-			// request.js transport.open("GET", url, true);
-			assert(openStub.called);
-			assertEquals(["GET", url, true], openStub.args);
+			assertEquals(["GET", url, true], this.xhr.open.args);
 		}
 	});
 
