@@ -23,6 +23,7 @@
 // list 12-35 要求が成功してもコールバックがないときに対応
 // 大きな応答を返す要求では、ハンドラが何度も呼び出され、不要なオーバーヘッドが加わるため、関数呼び出しを一度にする
 // list 12-40 sendが引数つきで呼び出されることをアサートする
+// list 12-42 循環参照が切れていることをアサートする
 
 (function (){
 
@@ -118,6 +119,14 @@
 					this.xhr.onreadystatechange();
 				}.bind(this)
 			);
+		},
+
+		"test should reset onreadystatechange when complete": function (){
+			this.xhr.readyState = 4;
+			ajax.get("/url");
+
+			this.xhr.onreadystatechange();
+			assertSame(tddjs.noop, this.xhr.onreadystatechange);
 		}
 	});
 
