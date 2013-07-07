@@ -13,6 +13,7 @@
 // list 12-32 sendメソッドを呼び出す
 // list 12-34 成功コールバックを受け付け、呼び出す
 // list 12-36 options引数をチェックする
+// list 12-41 sendメソッドにnullを渡す
 
 (function () {
 
@@ -46,7 +47,7 @@
 				requestComplete(transport, options);
 			}
 		};
-		transport.send();
+		transport.send(null);
 	}
 
 	ajax.get = get;
