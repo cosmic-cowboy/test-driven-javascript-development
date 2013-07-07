@@ -1,5 +1,7 @@
 /*jslint indent: 2, onevar: false, plusplus: false, eqeqeq: false, nomen: false*/
 /*globals document, window*/
+// list 12-46 現在のURLをチェックして、要求がローカルかどうか判断する
+
 var tddjs = (function () {
   function namespace(string) {
     var object = this;
@@ -140,4 +142,12 @@ tddjs.isHostMethod = (function () {
   }
 
   return isHostMethod;
+}());
+
+tddjs.isLocal = (function () {
+  function isLocal () {
+    return !!(window.location &&
+      window.location.protocol.indexOf("file:") === 0);
+  }
+  return isLocal;
 }());
