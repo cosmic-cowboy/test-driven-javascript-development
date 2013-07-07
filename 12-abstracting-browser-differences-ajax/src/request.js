@@ -15,6 +15,7 @@
 // list 12-36 options引数をチェックする
 // list 12-41 sendメソッドにnullを渡す
 // list 12-43 循環参照を破る
+// list 12-45 ローカル要求を成功させられるようにする
 
 tddjs.noop = function () {};
 
@@ -27,10 +28,9 @@ tddjs.noop = function () {};
 	}
 
 	function requestComplete (transport, options) {
-		// 本番用
-		if(transport.status === 200){
-		// ローカルファイル用
-		// if(transport.status === 0){
+		var status = transport.status;
+		// !statusになっているが、statusが0のときというように明確にしておきたいので
+		if(status === 200 || tddjs.isLocal() && status === 0){
 			if(typeof options.success === "function"){
 				options.success(transport);
 			}
