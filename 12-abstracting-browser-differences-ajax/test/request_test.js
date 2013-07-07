@@ -22,6 +22,8 @@
 // list 12-33 レディ状態ハンドラをテストして要求が成功したがどうか確認
 // list 12-35 要求が成功してもコールバックがないときに対応
 // 大きな応答を返す要求では、ハンドラが何度も呼び出され、不要なオーバーヘッドが加わるため、関数呼び出しを一度にする
+// list 12-40 sendが引数つきで呼び出されることをアサートする
+
 (function (){
 
 	var ajax = tddjs.ajax;
@@ -69,6 +71,11 @@
 			ajax.get("/url");
 
 			assert(this.xhr.send.called);
+		},
+		"test should pass null as argument to send" : function () {
+			ajax.get("/url");
+
+			assertNull(this.xhr.send.args[0]);
 		}
 	});
 
