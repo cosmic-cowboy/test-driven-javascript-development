@@ -24,6 +24,7 @@
 // 大きな応答を返す要求では、ハンドラが何度も呼び出され、不要なオーバーヘッドが加わるため、関数呼び出しを一度にする
 // list 12-40 sendが引数つきで呼び出されることをアサートする
 // list 12-42 循環参照が切れていることをアサートする
+// list 12-44 ローカル要求でも成功ハンドラが呼び出せるようにする
 
 (function (){
 
@@ -127,6 +128,19 @@
 
 			this.xhr.onreadystatechange();
 			assertSame(tddjs.noop, this.xhr.onreadystatechange);
+		},
+
+		"test should call success handler for local requests": function () {
+			this.xhr.readyState = 4;
+			this.xhr.status = 0;
+			var success = stubFn();
+			tddjs.isLocal = stubFn(true);
+
+			ajax.get("file.html", {
+				success : success
+			});
+			this.xhr.onreadystatechange();
+			assert(success.called);
 		}
 	});
 
