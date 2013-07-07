@@ -23,7 +23,10 @@
 	}
 
 	function requestComplete (transport, options) {
-		if(transport.status === 200){
+		// // 本番用
+		// if(transport.status === 200){
+		// ローカルファイル用
+		if(transport.status === 0){
 			if(typeof options.success === "function"){
 				options.success(transport);
 			}
