@@ -14,6 +14,9 @@
 // list 12-34 成功コールバックを受け付け、呼び出す
 // list 12-36 options引数をチェックする
 // list 12-41 sendメソッドにnullを渡す
+// list 12-43 循環参照を破る
+
+tddjs.noop = function () {};
 
 (function () {
 
@@ -45,6 +48,7 @@
 		transport.onreadystatechange = function () {
 			if(transport.readyState === 4){
 				requestComplete(transport, options);
+				transport.onreadystatechange = tddjs.noop;
 			}
 		};
 		transport.send(null);
